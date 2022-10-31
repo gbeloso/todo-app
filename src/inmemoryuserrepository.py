@@ -1,4 +1,4 @@
-from todolist.src.userrepository import UserRespository
+from userrepository import UserRespository
 
 
 class InMemoryUserRepository(UserRespository):
