@@ -7,19 +7,21 @@ from fakehashservice import FakeHashService
 
 def test_signup_with_valid_data():
     user_repo = InMemoryUserRepository()
+    hash_service = FakeHashService()
     user_name = 'Joe Doe'
     user_email = 'joe@doe.com'
     user_password = 'test1234TEST&'
-    usecase = SignUp(user_repo)
+    usecase = SignUp(user_repo, hash_service)
     usecase.perform(user_name, user_email, user_password)
     assert user_repo.find_by_email(user_email).name == user_name
 
 def test_prevent_duplicate_user():
     user_repo = InMemoryUserRepository()
+    hash_service = FakeHashService()
     user_name = 'Joe Doe'
     user_email = 'joe@doe.com'
     user_password = 'test1234TEST&'
-    usecase = SignUp(user_repo)
+    usecase = SignUp(user_repo, hash_service)
     usecase.perform(user_name, user_email, user_password)
     dup_user_name = 'Doe Joe'
     dup_user_email = 'joe@doe.com'
@@ -37,4 +39,4 @@ def test_hash_password():
     usecase.perform(user_name, user_email, user_password)
     assert user_repo.find_by_email(user_email).name == user_name
     assert user_repo.find_by_email(user_email).password != user_password
-    assert hash_service.chack(user_password, user_repo.find_by_email(user_email).password) == True
+    assert hash_service.check(user_password, user_repo.find_by_email(user_email).password) == True

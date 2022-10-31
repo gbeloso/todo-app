@@ -2,10 +2,10 @@ class FakeHashService():
     def __init__(self):
         pass
     def hash(self, password):
-        return password +'HASEHD'
+        return password +'HASHED'
 
     def check(self, password, hashed):
         if(hashed == password + 'HASHED'):
             return True
         else:
-         return False
+            return False
