@@ -1,4 +1,7 @@
-class InMemoryUserRepository:
+from todolist.src.userrepository import UserRespository
+
+
+class InMemoryUserRepository(UserRespository):
     def __init__(self):
         self.users = []
 
