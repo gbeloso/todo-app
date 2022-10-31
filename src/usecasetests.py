@@ -1,9 +1,11 @@
 from os import dup
+import bcrypt
 from inmemoryuserrepository import InMemoryUserRepository
 from signup import SignUp
 import pytest
 from duplicateusererror import DuplicateUserError
 from fakehashservice import FakeHashService
+from bcrypthashservice import BcryptHasService
 
 def test_signup_with_valid_data():
     user_repo = InMemoryUserRepository()
@@ -31,7 +33,7 @@ def test_prevent_duplicate_user():
 
 def test_hash_password():
     user_repo = InMemoryUserRepository()
-    hash_service = FakeHashService()
+    hash_service = BcryptHasService(bcrypt.gensalt(14))
     user_name = 'Joe Doe'
     user_email = 'joe@doe.com'
     user_password = 'test1234TEST&'
